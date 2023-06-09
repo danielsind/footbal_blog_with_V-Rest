@@ -5,6 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('posts/', views.post_list),
+    path('posts/<int:id>', views.post_detail)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
