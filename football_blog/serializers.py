@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from football_blog.blog_api.models import Post
-from football_blog.user_api.models import Profile
+from blog_api.models import Post
+from user_api.models import Profile
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
