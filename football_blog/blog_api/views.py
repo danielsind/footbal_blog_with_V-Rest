@@ -43,3 +43,4 @@ def post_detail(request, id, format=None):
     elif request.method == 'DELETE':
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
