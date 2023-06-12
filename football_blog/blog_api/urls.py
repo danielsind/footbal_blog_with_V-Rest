@@ -1,5 +1,4 @@
 from django.urls import path
-from .import views
 from blog_api import views as blog_api_views
 from user_api import views as user_api_views
 from rest_framework.urlpatterns import format_suffix_patterns
