@@ -1,6 +1,4 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework import status
@@ -8,10 +6,7 @@ from blog_api.models import Post
 from user_api.models import UserProfile 
 from serializers import UserSerializer, PostSerializer, UserProfileSerializer
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
 
 class UserAPIView(APIView):
     def get(self, request: Request):
