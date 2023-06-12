@@ -6,7 +6,6 @@ from rest_framework import status
 from serializers import PostSerializer
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.exceptions import PermissionDenied
 from .permissions import IsOwnerOrReadOnly
 
 class PostAPIView(APIView):
