@@ -15,7 +15,7 @@ class UserAPIView(APIView):
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def post(self, request: Request):
+    def register(self, request: Request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -31,12 +31,12 @@ class UserProfileDetailView(APIView):
             raise status.HTTP_404_NOT_FOUND
 
     def get(self, request, user_id):
-        user = self.get_post(user_id)
+        user = self.get_user(user_id)
         serializer = UserProfileSerializer(user)
         return Response(serializer.data)
 
     def put(self, request, user_id):
-        user = self.get_post(user_id)
+        user = self.get_user(user_id)
         
         # Check if the user is the owner of the post
         if user.user != request.user:
@@ -66,20 +66,5 @@ class UserPostsAPIView(APIView):
         user_posts = Post.objects.filter(user_id=user_id)
         serializer = PostSerializer(user_posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request, user_id):
-        # Create a new post for the user
-        request.data['user_id'] = user_id
-        serializer = PostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class UserProfileView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        user_profile = UserProfile.objects.get(user=request.user)
-        serializer = UserProfileSerializer(user_profile)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    

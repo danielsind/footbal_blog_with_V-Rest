@@ -81,7 +81,7 @@ class FilteredPostsAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class CategoryPostsAPIView(APIView):
-    def get(self, request: Request, category: str):
+    def get(self, request: Request, category:str):
         posts = Post.objects.filter(category=category)
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
