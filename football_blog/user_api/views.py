@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 from rest_framework import status
 from blog_api.models import Post
 from user_api.models import UserProfile 
@@ -15,12 +17,36 @@ class UserAPIView(APIView):
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
 
-    def register(self, request: Request):
+
+class UserRegistrationView(APIView):
+    def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            user = serializer.save()
+            token = Token.objects.create(user=user)
+            response_data = {
+                'token': token.key,
+                'user': serializer.data
+            }
+            return Response(response_data, status=201)
+        return Response(serializer.errors, status=400)
+
+
+class UserLoginView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            token, created = Token.objects.get_or_create(user=user)
+            response_data = {
+                'token': token.key,
+                'user': UserSerializer(user).data
+            }
+            return Response(response_data, status=200)
+        return Response({'error': 'Invalid credentials'}, status=401)
+    
+
 class UserProfileDetailView(APIView):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
