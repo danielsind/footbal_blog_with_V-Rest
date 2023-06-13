@@ -10,6 +10,7 @@ urlpatterns = [
     path('category/<str:category>', blog_api_views.CategoryPostsAPIView.as_view(), name='category'),
     path('register/',user_api_views.UserRegistrationView.as_view(), name='user-registration'),
     path('login/', user_api_views.UserLoginView.as_view(), name='user-login'),
+    path('users/', user_api_views.UserListView.as_view(), name='user-list'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

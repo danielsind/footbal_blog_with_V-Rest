@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.request import Request
+from rest_framework.generics import ListAPIView
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from rest_framework import status
@@ -11,11 +12,9 @@ from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.exceptions import PermissionDenied
-class UserAPIView(APIView):
-    def get(self, request: Request):
-        queryset = User.objects.all()
-        serializer = UserSerializer(queryset, many=True)
-        return Response(serializer.data)
+class UserListView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 class UserRegistrationView(APIView):
