@@ -1,0 +1,84 @@
+{
+  "blogger": [
+    {
+      "username": "Felix Mwendia",
+      "email": "gathagefelix@gmail.com",
+      "password": "qwertyuiop"
+    },
+    {
+      "id": 2,
+      "username": "Isaac Maina",
+      "email": "isaac@gmail.com",
+      "password": "asdfghjkl"
+    },
+    {
+      "id": 3,
+      "username": "Ian Maina",
+      "email": "ian@gmail.com",
+      "password": "asdfghjkl"
+    },
+    {
+      "username": "qaz",
+      "email": "qaz",
+      "password": "qaz",
+      "id": 4
+    },
+    {
+      "username": "wsx",
+      "email": "wsx",
+      "password": "wsx",
+      "id": 5
+    },
+    {
+      "username": "edc",
+      "email": "edc",
+      "password": "edc",
+      "id": 6
+    },
+    {
+      "username": "zxcvbnm",
+      "email": "zxcvbnm",
+      "password": "zxcvbnm",
+      "id": 7
+    },
+    {
+      "username": "rfv",
+      "email": "rfv",
+      "password": "rfv",
+      "id": 8
+    },
+    {
+      "username": "asdfghjkl",
+      "email": "asdfghjkl",
+      "password": "asdfghjkl",
+      "id": 9
+    },
+    {
+      "username": "tgb",
+      "email": "tgb",
+      "password": "tgb",
+      "id": 10
+    },
+    {
+      "username": "Felix Mwendia",
+      "email": "gathagafelix@gmail.com",
+      "password": "qaz",
+      "id": 11
+    },
+    {
+      "username": "Macrine ",
+      "email": "Macrine",
+      "password": "qaz",
+      "id": 12
+    }
+  ],
+  "post": [
+    {
+      "category": "Players",
+      "post_title": "RashFord",
+      "content": "qwertyuiopqwertyuiopqwertyuiop",
+      "video": "ddedbjede",
+      "author": "fenyo"
+    }
+  ]
+}

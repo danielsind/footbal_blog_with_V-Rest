@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
+  <title>Demo of vue-country-select</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/select2/4.0.0/css/select2.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="https://select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css">
+</head>
+
+<body>
+  <h1 class="text-center">Demo of vue-country-select</h1>
+  <div class="container" id="app">
+    <div class="form-horizontal">
+      <div class="form-group">
+        <!-- <label for="language-select" class="col-sm-3 control-label">
+          Select language:
+        </label>
+        <div class="col-sm-5">
+          <select v-model="language" name="language-select">
+            <option value="en-US">US English</option>
+            <option value="zh-CN">Simplified Chinese</option>
+            <option value="zh-TW">Traditional Chinese</option>
+            <option value="js-JP">Japanese</option>
+          </select>
+        </div>
+        <div class="col-sm-4">
+          <p class="form-control-static">
+            Selected language: <span class="vue-result">{{language}}</span>
+          </p>
+        </div> -->
+        <label for="country-select" class="col-sm-3 control-label">
+          Select country:
+        </label>
+        <div class="col-sm-5">
+          <vue-country-select name="country-select"
+                              :model.sync="result" language="en-US">
+          </vue-country-select>
+        </div>
+        <div class="col-sm-4">
+          <p class="form-control-static">
+            Selected country: <span class="vue-result">{{result}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/select2/4.0.0/js/select2.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/select2/4.0.0/js/i18n/en.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/select2/4.0.0/js/i18n/zh-CN.js"></script>
+  <script type="text/javascript" src="./demo.all.js"></script>
+</body>
+</html>

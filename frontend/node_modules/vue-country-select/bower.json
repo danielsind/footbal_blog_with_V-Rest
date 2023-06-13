@@ -1,0 +1,36 @@
+{
+  "name": "vue-country-select",
+  "description": "A Vue.js component implementing the select control used to select countries.",
+  "version": "0.2.2",
+  "keywords": [
+    "Vue.js",
+    "component",
+    "select",
+    "jquery.select2",
+    "country"
+  ],
+  "authors": [
+    "Haixing Hu"
+  ],
+  "homepage": "https://github.com/Haixing-Hu/vue-country-select",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Haixing-Hu/vue-country-select.git"
+  },
+  "main": [
+    "src/vue-country-select.js"
+  ],
+  "ignore": [
+    "lib",
+    "coverage",
+    "node_modules"
+  ],
+  "dependencies": {
+    "vue": "^1.0.24",
+    "vue-select": "^0.2.6"
+  },
+  "devDependencies": {
+    "vue-i18n-plugin": "^0.2.2"
+  }
+}
