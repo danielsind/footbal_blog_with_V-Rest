@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework import status
+from django.db.models import Q
+from rest_framework.generics import ListAPIView
 from serializers import PostSerializer
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
@@ -58,27 +60,19 @@ class PostDetailView(APIView):
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-class FilteredPostsAPIView(APIView):
-    def get(self, request, q):
-        queryset = Post.objects.all()
+class FilteredPostsAPIView(ListAPIView):
+    serializer_class = PostSerializer
 
-        # Apply filters
-        query = q
-        # author = request.query_params.get('author')
-        # content = request.query_params.get('content')
-        # category = request.query_params.get('category')
-
-        # if title:
-        #     queryset = queryset.filter(title__icontains=title)
-        # if author:
-        #     queryset = queryset.filter(author__icontains=author)
-        # if content:
-        #     queryset = queryset.filter(category__icontains=content)
+    def get_queryset(self, *args, **kwargs):
+        query_list = Post.objects.all()
+        query = self.request.GET.get("q")
         if query:
-            queryset = queryset.filter(category__icontains=query)
+            query_list = query_list.filter(
+                Q(title__icontains=query) |
+                Q(content__icontains=query)
+            ).distinct()
+        return query_list
 
-        serializer = PostSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
     
 class CategoryPostsAPIView(APIView):
     def get(self, request: Request, category:str):

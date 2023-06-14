@@ -13,10 +13,11 @@ router.register(r'users', user_api_views.UserListView, basename='UserListView')
 urlpatterns = [
     path('posts/', blog_api_views.PostAPIView.as_view(), name='posts'),
     path('posts/<int:id>', blog_api_views.PostDetailView.as_view(), name='post-detail'),
-    path('filter-posts/<str:q>', blog_api_views.FilteredPostsAPIView.as_view(), name='filter-posts'),
+     path('filter/', blog_api_views.FilteredPostsAPIView.as_view(), name='filtered_posts_api'),
+     # test with this /filter/?q=search_query
     path('category/<str:category>', blog_api_views.CategoryPostsAPIView.as_view(), name='category'),
-    path('register/',user_api_views.UserRegistrationView.as_view(), name='user-registration'),
-    path('login/', user_api_views.UserLoginView.as_view(), name='user-login'),
+    # path('register/',user_api_views.UserRegistrationView.as_view(), name='user-registration'),
+    # path('login/', user_api_views.UserLoginView.as_view(), name='user-login'),
     path('', include(router.urls)),
     # path('', user_api_views.UserListView.as_view(), name='user-list'),
 ]
