@@ -59,23 +59,23 @@ class PostDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class FilteredPostsAPIView(APIView):
-    def get(self, request):
+    def get(self, request, q):
         queryset = Post.objects.all()
 
         # Apply filters
-        title = request.query_params.get('title')
-        author = request.query_params.get('author')
-        content = request.query_params.get('content')
-        category = request.query_params.get('category')
+        query = q
+        # author = request.query_params.get('author')
+        # content = request.query_params.get('content')
+        # category = request.query_params.get('category')
 
-        if title:
-            queryset = queryset.filter(title__icontains=title)
-        if author:
-            queryset = queryset.filter(author__icontains=author)
-        if content:
-            queryset = queryset.filter(category__icontains=content)
-        if category:
-            queryset = queryset.filter(category__icontains=category)
+        # if title:
+        #     queryset = queryset.filter(title__icontains=title)
+        # if author:
+        #     queryset = queryset.filter(author__icontains=author)
+        # if content:
+        #     queryset = queryset.filter(category__icontains=content)
+        if query:
+            queryset = queryset.filter(category__icontains=query)
 
         serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
