@@ -54,10 +54,17 @@ export default {
     methods:{
         async Login(){
 
+          const blogger = {
+          username: this.username,
+          password: this.password
+           };
+
             let result = await axios.get(
-                `http://localhost:3000/blogger?username=${this.username}&&password=${this.password}`
+                `http://localhost:8000/users/?username=${this.username}&&password=${this.password}`
                 )
             if(result.status==200 && result.data.length>0){
+
+                localStorage.setItem("blogger", JSON.stringify(blogger));
                 this.$router.push({name:"HomePage"})
             }
             

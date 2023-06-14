@@ -70,18 +70,21 @@
             login: false
         }
     },
-    mounted(){
-        let result = localStorage.getItem("blogger");
-        if(result){
-            this.logged = false
+    mounted() {
+
+        let user = localStorage.getItem("blogger");
+        this.username = JSON.parse(user).username;   
+
+        if(user){
+            this.logged = false;
             this.login = true
         }
-        let username = localStorage.getItem("blogger");
-        this.username = JSON.parse(username).username;
-        
-    }
-   
-   }
+     },
+    
+     
+}
+
+
 </script>
 
 <style>

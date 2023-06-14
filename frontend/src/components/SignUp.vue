@@ -12,18 +12,12 @@
                   <form>
       
                     <div class="form-floating mb-3">
-                      <input v-model="username" type="text" class="form-control" id="floatingInputUsername" placeholder="myusername" required autofocus>
+                      <input v-model="blogger.username" type="text" class="form-control" id="floatingInputUsername" placeholder="myusername" required autofocus>
                       <label for="floatingInputUsername">Username</label>
                     </div>
       
                     <div class="form-floating mb-3">
-                      <input v-model="email" type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
-                      <label for="floatingInputEmail">Email address</label>
-                    </div>
-      
-      
-                    <div class="form-floating mb-3">
-                      <input v-model="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                      <input v-model="blogger.password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                       <label for="floatingPassword">Password</label>
                     </div>
       
@@ -62,37 +56,35 @@
 </template>
 
 <script>
-import axios from "axios";
  export default{
     name:"SignUp",
     data(){
        return {
-        username: "",
-        email:"",
-        password:""
-
+        blogger:{
+          username: "",
+          password:""
+        }
+      
        }
     },
     methods:{
+        
         async SignUp(){
-
-            let result = await axios.post( "http://localhost:3000/blogger",
-              {
-                username:this.username,
-                email: this.email,
-                password:this.password
-              }
-            );
-            if(result.status==201) {
+          var response = await fetch('http://localhost:8000/register/' && '' ,{
+            method:"post",
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body: JSON.stringify(this.blogger)
+          })
+          if(response.status==201) {
                 alert("Sign Up Successful")
-                
-                localStorage.setItem("blogger",JSON.stringify(result.data))
-                
+                                
                 this.$router.push({name:"LogIn"})
 
             }
-
-        }
+        },
+        
     },
    
  }
