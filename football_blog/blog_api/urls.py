@@ -8,15 +8,12 @@ app_name="blog"
 router = routers.DefaultRouter()
 router.register(r'posts', blog_api_views.PostListView, basename='posts')
 router.register(r'users', user_api_views.UserListView, basename='users')
-# router.register(r'posts/filter/<str:q>', blog_api_views.FilteredPostsAPIView, basename='posts-filter')
+router.register(r'user-profile', user_api_views.UserProfileView, basename='user-profile')
+
+
 router.include_format_suffixes = False 
-# router.register(r'users', user_api_views.UserListView, basename='UserListView')
 
 urlpatterns = [
-    # path('posts/', blog_api_views.PostAPIView.as_view(), name='posts'),
-    # path('posts-detail/<int:id>', blog_api_views.PostDetailView.as_view(), name='post-detail'),
-    # path('filter/', blog_api_views.FilteredPostsAPIView.as_view(), name='filtered_posts_api'),
-     # test with this //?q=search_query
     path('', include(router.urls)),
 ]
 

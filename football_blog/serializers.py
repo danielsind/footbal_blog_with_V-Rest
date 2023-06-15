@@ -11,7 +11,7 @@ class PostSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        field = ['id', 'user','image',]
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
