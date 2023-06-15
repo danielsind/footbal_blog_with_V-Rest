@@ -3,64 +3,15 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework import status
-from django.db.models import Q
-from rest_framework.generics import ListAPIView
+from rest_framework.viewsets import ModelViewSet
 from serializers import PostSerializer
-from rest_framework.exceptions import PermissionDenied
-from rest_framework.permissions import IsAuthenticated
-from .permissions import IsOwnerOrReadOnly
+# from rest_framework.exceptions import PermissionDenied
+# from rest_framework.permissions import IsAuthenticated
+# from .permissions import IsOwnerOrReadOnly
+from django.db.models import Q
 
-class PostAPIView(APIView):
-    def get(self, request: Request):
-        queryset = Post.objects.all()
-        serializer = PostSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-    def post(self, request: Request): 
-        serializer = PostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class PostDetailView(APIView):
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
-
-    def get_post(self, post_id):
-        try:
-            return Post.objects.get(id=post_id)
-        except Post.DoesNotExist:
-            raise status.HTTP_404_NOT_FOUND
-
-    def get(self, request, post_id):
-        post = self.get_post(post_id)
-        serializer = PostSerializer(post)
-        return Response(serializer.data)
-
-    def put(self, request, post_id):
-        post = self.get_post(post_id)
-        
-        # Check if the user is the owner of the post
-        if post.user != request.user:
-            raise PermissionDenied("You do not have permission to update this post.")
-
-        serializer = PostSerializer(post, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, post_id):
-        post = self.get_post(post_id)
-        
-        # Check if the user is the owner of the post
-        if post.user != request.user:
-            raise PermissionDenied("You do not have permission to delete this post.")
-
-        post.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
-class FilteredPostsAPIView(ListAPIView):
+class PostListView(ModelViewSet):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
     def get_queryset(self, *args, **kwargs):
@@ -72,10 +23,14 @@ class FilteredPostsAPIView(ListAPIView):
                 Q(content__icontains=query)
             ).distinct()
         return query_list
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        
+        category = self.request.query_params.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+        
+        return queryset
 
     
-class CategoryPostsAPIView(APIView):
-    def get(self, request: Request, category:str):
-        posts = Post.objects.filter(category=category)
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
